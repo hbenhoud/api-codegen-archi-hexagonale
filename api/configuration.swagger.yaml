@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Backend api microservice.
+  description: Backend api microservice configuration.
+  version: 0.1.0
+
+paths:
+  /channels:
+    post:
+      tags:
+        - "Channels"
+      summary: "Create a new channel."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Channel"
+      responses:
+        "200":
+          description: "Returns the inserted channel."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Channel"
+        "400":
+          description: "Bad request."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: "Internal Server Error."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      tags:
+        - Channels
+      summary: Get channels.
+      description: Get all channel configurations.
+      operationId: getChannels
+      responses:
+        '200':
+          description: Returns the list of all channel configurations.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Channels"
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+
+    Channel:
+      type: object
+      required:
+        - name
+        - input
+      properties:
+        name:
+          title: Channel Configuration Name
+          description: Channel configuration unique name. At creation, if not provided it will be generated.
+          type: string
+          minLength: 3
+          maxLength: 50
+        on_air:
+          title: Channel Configuration On Air
+          description: If enabled, channel is available for end-users.
+          type: boolean
+          default: false
+        input:
+          title: Channel Configuration Input
+          description: Configuration input of the channel.
+          $ref: '#/components/schemas/ChannelInput'
+
+    Channels:
+      type: array
+      items:
+        $ref: '#/components/schemas/Channel'
+    
+    ChannelInput:
+      title: Channel Input
+      type: object
+      required:
+        - source
+        - origin_url
+      properties:
+        source:
+          title: Input Live
+          description: Origin of the input.
+          type: string
+          enum:
+            - LIVE
+            - VOD
+        origin_url:
+          title: Input origin URL
+          description: Origin URL of the input.
+          type: string
+          format: uri
+          pattern: '^((http[s]?://).+)?$'
