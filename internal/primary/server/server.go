@@ -1,7 +1,8 @@
 package server
 
 import (
-	"backend-api/internal/validator"
+	"backend-api/internal/core/ports"
+	"backend-api/internal/pkg/validator"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,19 +16,25 @@ var (
 	router                 = gin.New()
 )
 
-type Handlers struct{}
-
-func newHandlers() *Handlers {
-	return &Handlers{}
+type Handlers struct {
+	services CoreServices
 }
 
-func New(addr string, opaValidator validator.OpenAPI) http.Server {
+type CoreServices struct {
+	ChannelService ports.ChannelService
+}
+
+func New(services CoreServices, addr string, opaValidator validator.OpenAPI) http.Server {
 	return http.Server{
 		Addr: addr,
-		Handler: RegisterHandlersWithOptions(router, newHandlers(), GinServerOptions{
-			Middlewares: []MiddlewareFunc{
-				requestValidatorMiddleware(opaValidator),
+		Handler: RegisterHandlersWithOptions(
+			router, &Handlers{
+				services: services,
 			},
-		}),
+			GinServerOptions{
+				Middlewares: []MiddlewareFunc{
+					requestValidatorMiddleware(opaValidator),
+				},
+			}),
 	}
 }

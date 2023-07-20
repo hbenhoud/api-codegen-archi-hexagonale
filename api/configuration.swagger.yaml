@@ -21,7 +21,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Channel"
+                $ref: "#/components/schemas/ChannelID"
         "400":
           description: "Bad request."
           content:
@@ -69,6 +69,18 @@ components:
       properties:
         message:
           type: string
+    
+    ChannelID:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          title: Channel Configuration ID
+          description: Channel configuration unique identifier.
+          type: string
+          format: uuid
+          readOnly: true
 
     Channel:
       type: object
@@ -76,6 +88,8 @@ components:
         - name
         - input
       properties:
+        id:
+          $ref: '#/components/schemas/ChannelID'
         name:
           title: Channel Configuration Name
           description: Channel configuration unique name. At creation, if not provided it will be generated.

@@ -1,7 +1,7 @@
 package server
 
 import (
-	"backend-api/internal/validator"
+	"backend-api/internal/pkg/validator"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
