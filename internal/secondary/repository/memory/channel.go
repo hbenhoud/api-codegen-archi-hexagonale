@@ -11,7 +11,7 @@ type ChannelMemory struct {
 	channels []entity.Channel
 }
 
-func NewChannelMemory() *ChannelMemory {
+func NewChannel() *ChannelMemory {
 	return &ChannelMemory{
 		channels: []entity.Channel{},
 	}

@@ -39,7 +39,6 @@ paths:
         - Channels
       summary: Get channels.
       description: Get all channel configurations.
-      operationId: getChannels
       responses:
         '200':
           description: Returns the list of all channel configurations.
@@ -86,7 +85,6 @@ components:
       required:
         - name
         - input
-
       properties:
         id:
           title: Channel configuration unique identifier.
@@ -109,10 +107,6 @@ components:
           description: Configuration input of the channel.
           $ref: '#/components/schemas/ChannelInput'
 
-    Channels:
-      type: array
-      items:
-        $ref: '#/components/schemas/Channel'
     
     ChannelInput:
       title: Channel Input
@@ -134,3 +128,8 @@ components:
           type: string
           format: uri
           pattern: '^((http[s]?://).+)?$'
+
+    Channels:
+      type: array
+      items:
+        $ref: '#/components/schemas/Channel'

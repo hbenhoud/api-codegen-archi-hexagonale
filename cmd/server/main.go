@@ -13,18 +13,18 @@ func main() {
 	const addr = ":8080"
 	var ctx = context.Background()
 
-	// init validator with config schema.
-	validator := validator.NewKinOpenAPI(
-		ctx, api.GetConfigSchema(),
-	)
-
 	// init memory repo.
-	memoryRepo := memory.NewChannelMemory()
+	memoryRepo := memory.NewChannel()
 
 	// init core services.
 	services := server.CoreServices{
 		ChannelService: service.NewChannelCore(memoryRepo),
 	}
+
+	// init validator with config schema.
+	validator := validator.NewKinOpenAPI(
+		ctx, api.GetConfigSchema(),
+	)
 
 	// init http server.
 	server := server.New(services, addr, validator)
