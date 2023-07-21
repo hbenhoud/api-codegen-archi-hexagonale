@@ -34,6 +34,7 @@ func New(services CoreServices, addr string, opaValidator validator.OpenAPI) htt
 			GinServerOptions{
 				Middlewares: []MiddlewareFunc{
 					requestValidatorMiddleware(opaValidator),
+					responseValidatorMiddleware(opaValidator),
 				},
 			}),
 	}

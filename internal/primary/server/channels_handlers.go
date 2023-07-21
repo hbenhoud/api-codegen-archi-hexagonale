@@ -15,7 +15,10 @@ func (h Handlers) GetChannels(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, channels)
+	c.JSON(
+		http.StatusOK,
+		toServerChannels(channels),
+	)
 }
 
 func (h Handlers) PostChannels(c *gin.Context) {
