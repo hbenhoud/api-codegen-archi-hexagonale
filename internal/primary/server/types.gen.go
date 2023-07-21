@@ -15,8 +15,8 @@ const (
 
 // Channel defines model for Channel.
 type Channel struct {
-	Id    *ChannelID   `json:"id,omitempty"`
-	Input ChannelInput `json:"input"`
+	Id    *openapi_types.UUID `json:"id,omitempty"`
+	Input ChannelInput        `json:"input"`
 
 	// Name Channel configuration unique name. At creation, if not provided it will be generated.
 	Name string `json:"name"`
@@ -27,7 +27,6 @@ type Channel struct {
 
 // ChannelID defines model for ChannelID.
 type ChannelID struct {
-	// Id Channel configuration unique identifier.
 	Id *openapi_types.UUID `json:"id,omitempty"`
 }
 

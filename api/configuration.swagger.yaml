@@ -76,8 +76,7 @@ components:
         - id
       properties:
         id:
-          title: Channel Configuration ID
-          description: Channel configuration unique identifier.
+          title: Channel configuration unique identifier.
           type: string
           format: uuid
           readOnly: true
@@ -87,9 +86,13 @@ components:
       required:
         - name
         - input
+
       properties:
         id:
-          $ref: '#/components/schemas/ChannelID'
+          title: Channel configuration unique identifier.
+          type: string
+          format: uuid
+          readOnly: true
         name:
           title: Channel Configuration Name
           description: Channel configuration unique name. At creation, if not provided it will be generated.
