@@ -10,21 +10,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func requestValidatorMiddleware(opav validator.OpenAPI) MiddlewareFunc {
+func requestValidatorMiddleware(opav validator.OpenAPI) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if err := opav.ValidateRequest(c.Request.Context(), c.Request); err != nil {
 			c.JSON(http.StatusBadRequest, Error{
 				Message: err.Error(),
 			})
 
-			return
+			c.Abort()
 		}
 
 		c.Next()
 	}
 }
 
-func responseValidatorMiddleware(opav validator.OpenAPI) MiddlewareFunc {
+func responseValidatorMiddleware(opav validator.OpenAPI) gin.HandlerFunc {
 	return func(c *gin.Context) {
 
 		c.Writer = &cutomWriter{

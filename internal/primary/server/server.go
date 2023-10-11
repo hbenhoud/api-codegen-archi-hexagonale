@@ -25,17 +25,19 @@ type CoreServices struct {
 }
 
 func New(services CoreServices, addr string, opaValidator validator.OpenAPI) http.Server {
+
+	router.Use(
+		requestValidatorMiddleware(opaValidator),
+		responseValidatorMiddleware(opaValidator),
+	)
+
 	return http.Server{
 		Addr: addr,
 		Handler: RegisterHandlersWithOptions(
 			router, &Handlers{
 				services: services,
 			},
-			GinServerOptions{
-				Middlewares: []MiddlewareFunc{
-					requestValidatorMiddleware(opaValidator),
-					responseValidatorMiddleware(opaValidator),
-				},
-			}),
+			GinServerOptions{},
+		),
 	}
 }

@@ -45,4 +45,5 @@ func (h Handlers) PostChannels(c *gin.Context) {
 	c.JSON(http.StatusCreated, ChannelID{
 		Id: &uid,
 	})
+
 }
