@@ -8,8 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-//go:generate oapi-codegen -generate types -package server -o ./types.gen.go ../../../api/configuration.swagger.yaml
-//go:generate oapi-codegen -generate gin -package server -o ./server.gen.go ../../../api/configuration.swagger.yaml
+//go:generate oapi-codegen -generate types -package server -o ./types.gen.go ../../../api/schema.openapi.yaml
+//go:generate oapi-codegen -generate gin -package server -o ./server.gen.go ../../../api/schema.openapi.yaml
 
 var (
 	_      ServerInterface = (*Handlers)(nil)

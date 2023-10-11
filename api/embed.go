@@ -4,7 +4,7 @@ import (
 	_ "embed"
 )
 
-//go:embed configuration.swagger.yaml
+//go:embed schema.openapi.yaml
 var configData []byte
 
 // GetConfigSchema returns the embedded open API
