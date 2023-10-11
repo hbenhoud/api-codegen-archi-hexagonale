@@ -33,11 +33,10 @@ func New(services CoreServices, addr string, opaValidator validator.OpenAPI) htt
 
 	return http.Server{
 		Addr: addr,
-		Handler: RegisterHandlersWithOptions(
+		Handler: RegisterHandlers(
 			router, &Handlers{
 				services: services,
 			},
-			GinServerOptions{},
 		),
 	}
 }
